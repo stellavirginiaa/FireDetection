@@ -72,7 +72,7 @@ By harnessing the capabilities of SVM, RF, and CNN, the project aims to create a
 """)
 
 # Option for image source
-option = st.radio('Select Image Source:', ['Upload', 'Camera'])
+option = st.radio('Select Image Source:', ['Upload'])
 
 if option == 'Upload':
     # File uploader
