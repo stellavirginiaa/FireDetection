@@ -118,42 +118,42 @@ if option == 'Upload':
         else:
             st.write("Error reading uploaded image.")
 
-else:
-    # Capture image from camera
-    cap = cv2.VideoCapture(0)
-    if cap.isOpened():
-        ret, frame = cap.read()
-        if ret:
-            # Convert the frame from OpenCV BGR format to RGB format
-            frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+# else:
+#     # Capture image from camera
+#     cap = cv2.VideoCapture(0)
+#     if cap.isOpened():
+#         ret, frame = cap.read()
+#         if ret:
+#             # Convert the frame from OpenCV BGR format to RGB format
+#             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-            # Display the captured image
-            st.image(frame_rgb, caption='Captured Image', use_column_width=True)
+#             # Display the captured image
+#             st.image(frame_rgb, caption='Captured Image', use_column_width=True)
 
-            # Button to capture image
-            if st.button('Capture'):
-                # Extract features and make predictions
-                rf_result, svm_result, cnn_result = predict_new_image(frame_rgb, rf_model, svm_model, cnn_model)
+#             # Button to capture image
+#             if st.button('Capture'):
+#                 # Extract features and make predictions
+#                 rf_result, svm_result, cnn_result = predict_new_image(frame_rgb, rf_model, svm_model, cnn_model)
 
-                st.write('### Prediction Results:')
+#                 st.write('### Prediction Results:')
                 
-                # Table for Prediction Results
-                prediction_data = {
-                    'Algorithm': ['Random Forest', 'SVM', 'CNN'],
-                    'Prediction': [f'FIRE' if rf_result == 1 else 'non-fire',
-                                   f'FIRE' if svm_result == 1 else 'non-fire',
-                                   f'FIRE' if cnn_result == 1 else 'non-fire']
-                }
-                st.table(prediction_data)
+#                 # Table for Prediction Results
+#                 prediction_data = {
+#                     'Algorithm': ['Random Forest', 'SVM', 'CNN'],
+#                     'Prediction': [f'FIRE' if rf_result == 1 else 'non-fire',
+#                                    f'FIRE' if svm_result == 1 else 'non-fire',
+#                                    f'FIRE' if cnn_result == 1 else 'non-fire']
+#                 }
+#                 st.table(prediction_data)
 
-                # Save the captured image
-                cv2.imwrite('captured_image.jpg', cv2.cvtColor(frame, cv2.COLOR_RGB2BGR))
+#                 # Save the captured image
+#                 cv2.imwrite('captured_image.jpg', cv2.cvtColor(frame, cv2.COLOR_RGB2BGR))
 
-                # Display texture features
-                contrast, dissimilarity, homogeneity, energy, correlation, asm = get_texture_features(frame)
-                st.write('### Texture Features:')
-                texture_data = {
-                    'Feature': ['Contrast', 'Dissimilarity', 'Homogeneity', 'Energy', 'Correlation', 'ASM'],
-                    'Value': [contrast, dissimilarity, homogeneity, energy, correlation, asm]
-                }
-                st.table(texture_data)
+#                 # Display texture features
+#                 contrast, dissimilarity, homogeneity, energy, correlation, asm = get_texture_features(frame)
+#                 st.write('### Texture Features:')
+#                 texture_data = {
+#                     'Feature': ['Contrast', 'Dissimilarity', 'Homogeneity', 'Energy', 'Correlation', 'ASM'],
+#                     'Value': [contrast, dissimilarity, homogeneity, energy, correlation, asm]
+#                 }
+#                 st.table(texture_data)
